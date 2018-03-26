@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <div class="img-container" v-bind:class="{ active: isActive }" @click="closeCoverImg" style="width: 100vw; 
-  cursor: zoom-out; height: 100vh;
-    background-color: rgba(0,0,0,.6);">
+    <div class="img-container" v-bind:class="{ active: isActive }" @click="closeCoverImg" style="width: 100vw; cursor: zoom-out; height: 100vh; background-color: rgba(0,0,0,.6);">
       <div class="img-detail-main">
         <span style="font-weight: 600;">timeup</span> {{ coverTimeUp }} <br>
         <span style="font-weight: 600;">credit</span> 
@@ -13,15 +11,23 @@
         </span>
         <span v-else>{{ coverCredit }}</span>
       </div>
-      <img :src="coverImg" style="width: 99%; position: absolute; left: 0;" alt="">
+      <div v-if="coverImg.split('.').pop().split('?').shift() === 'mov'">
+        <video style="width: 100%; height: auto;" loop autoplay>
+          <source :src="coverImg" type="video/mp4">
+        </video>
+      </div>
+      <div v-else>
+        <img :src="coverImg" style="width: 99%; position: absolute; left: 0;" alt="">
+      </div>
+      
     </div>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div style="float: left; color: #111; vertical-align: baseline;">
-            <router-link :to="{ path: '/' }">
+            <router-link :to="{ path: '/discover' }">
             <!-- <span @click="$router.push('/')"> -->
-              <span style="font-size: 28px; font-weight: 600;">
+              <span style="font-size: 28px; font-weight: 600; font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
                 Sketchhabitat.</span><span style="font-size: 28px; font-weight: 300;">cc
               </span>
             <!-- </span> -->
@@ -29,7 +35,7 @@
           </div>
           <div style="font-family: 'Montserrat'; float: right; margin-top: 14px; width: 500px; font-weight: 300; vertical-align: baseline;">
             <div :key="1" style="position: absolute; right: 0; display: inline-block; padding-right: 15px;">
-              <router-link class="sign-up" to="/discover">Discover</router-link> | 
+              <router-link class="sign-up" to="/">jPoechill</router-link> | 
               <span v-if="!loggedIn" >
                 <router-link class="sign-up" to="/signup">Sign up</router-link>, 
                 or <router-link class="log-in" to="/login">Log in</router-link>
@@ -47,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="container" style="padding: 0px; margin-top: 4px">
+    <div class="container" style="padding: 0px; margin-top: 0px">
       <div class="row">
         <div class="col-md-12" v-bind:class="{ active: !isActive }" >
           <router-view v-on:updateCoverImg="updateCoverImg"></router-view>
@@ -56,7 +62,7 @@
     </div>
     <div class="container" v-if="this.$route.path !== '/signup' || this.$route.path !== '/login'">
       <div class="row">
-        <div class="col-md-12" style="text-align: center; font-size: 14px; margin-top: 10px;">
+        <div class="col-md-12" style="text-align: center; font-size: 14px; margin-top: 0px;">
           <a href="http://rithfolio.com">
             <img src="/static/Po_logo.png" style="margin-right: 22px; width: 28px; height: 28px; margin-top: -20px;" alt="">
           </a>
@@ -94,7 +100,7 @@ export default {
     },
   },
   created () {
-    console.log(this.$route.path)
+    // console.log(this.$route.path)
   },
   data () {
     return {
@@ -136,12 +142,12 @@ export default {
 
 <style>
 #app {
-  font-family:  'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* font-family:  'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #111;
-  margin-top: 10px;
+  margin-top: 3px;
 }
 
 .sign-up:hover {

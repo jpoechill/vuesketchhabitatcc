@@ -1,49 +1,52 @@
 <template>
   <div class="hello">
-    <div class="container" v-for="n in 1" :key="n" style="margin-bottom: 8px;">
+    <div class="container" style="margin-bottom: 8px;">
       <div class="row">
-        <div v-for="(img, index) in heroes" class="col-md-4" :key="index" style="margin-bottom: 6px;">
-          <div style="background-color: #EEE; margin-bottom: 0px;">
-            <transition name="list" v-on:before-enter="beforeEnter" v-on:enter="enter($event, index)" v-bind:data-index="index" mode="out-in" appear>
-              <div>
-                  <div @click="expandCoverImg(img.imgSrc, filterDate(img.lastUpdated), img.credit); img.isActive = false;" style="cursor: zoom-in;" v-on:mouseover="img.isActive = true" v-on:mouseout="img.isActive = false">
-                    <div style="position: relative; width: 100%; padding-bottom: 100%; overflow: hidden;">
-                      <div class="light-hover" style="position: absolute; width: 100%; padding-bottom: 100%; z-index: 99;"></div>
-                      <div style="position: absolute; width: 100%; height: auto;">
-                        <img id="myimg" :src="img.imgSrc" style="width:100%; max-height:100%;" alt="">
+        <div class="col-md-6" v-for="n in 2">
+          <div class="row">
+            <div v-for="(img, index) in heroes" class="col-md-6" :key="index" style="margin-bottom: 6px;" v-if="index < 2">
+              <div style="background-color: #EEE; margin-bottom: 0px;">
+                <transition name="list" v-on:before-enter="beforeEnter" v-on:enter="enter($event, index)" v-bind:data-index="index" mode="out-in" appear>
+                  <div>
+                      <div @click="expandCoverImg(img.imgSrc, filterDate(img.lastUpdated), img.credit); img.isActive = false;" style="cursor: zoom-in;" v-on:mouseover="img.isActive = true" v-on:mouseout="img.isActive = false">
+                        <div style="position: relative; width: 100%; padding-bottom: 100%; overflow: hidden;">
+                          <div class="light-hover" style="position: absolute; width: 100%; padding-bottom: 100%; z-index: 99;"></div>
+                          <div style="position: absolute; width: 100%; height: auto;">
+                            <img id="myimg" :src="img.imgSrc" style="width:100%; max-height:100%;" alt="">
+                          </div>
+                          <div class="img-detail" v-on:mouseover="detailIsActive = true" v-on:mouseout="detailIsActive = false">
+                            <span style="font-weight: 600;">timeup</span> {{ filterDate(img.lastUpdated) }} <br>
+                            <span style="font-weight: 600;">credit</span> 
+                            <span v-if="img.credit.split('').shift() === '@'">
+                              <a :href="'http://instagram.com/' + img.credit.split('').slice(1).join('')" style="color: #FFF;">
+                                {{ img.credit }}
+                              </a>
+                            </span>
+                            <span v-else>
+                              {{ img.credit }}
+                              </span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="img-detail" v-on:mouseover="detailIsActive = true" v-on:mouseout="detailIsActive = false">
-                        <span style="font-weight: 600;">timeup</span> {{ filterDate(img.lastUpdated) }} <br>
-                        <span style="font-weight: 600;">credit</span> 
-                        <span v-if="img.credit.split('').shift() === '@'">
-                          <a :href="'http://instagram.com/' + img.credit.split('').slice(1).join('')" style="color: #FFF;">
-                            {{ img.credit }}
-                          </a>
-                        </span>
-                        <span v-else>
-                          {{ img.credit }}
-                          </span>
-                      </div>
-                    </div>
                   </div>
+                </transition>
+              </div>       
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" style="height: 30px;">
+              <div style="width: 100%; height: 14px; border-bottom: .3px solid #ccc; text-align: left;">
+                <span style="font-size: 14px; font-weight: 300; background-color: #FFF;padding: 0px 10px 0px 6px;">
+                <router-link :to="{ path: '/' }">
+                  jpoechill
+                </router-link>
+                </span>
               </div>
-            </transition>
-          </div> 
-                
-        </div>
-        
-      </div>
-<div class="row">
-          <div class="col-md-12" style="height: 30px;">
-            <div style="width: 100%; height: 14px; border-bottom: .3px solid #ccc; text-align: left;">
-              <span style="font-size: 14px; font-weight: 300; background-color: #FFF;padding: 0px 10px 0px 6px;">
-              <router-link :to="{ path: '/jpoechill' }">
-                jpoechill
-              </router-link>
-              </span>
             </div>
           </div>
         </div>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -78,28 +81,7 @@ export default {
           isActive: false,
           lastUpdated: "2018-02-15T21:58:59-08:00",
           order: 2
-        },
-        //         {
-        //   credit: "a mysterious marauder",
-        //   imgSrc: "/static/gdwanay.png",
-        //   isActive: false,
-        //   lastUpdated: "2018-02-15T21:58:59-08:00",
-        //   order: 0
-        // },
-        // {
-        //   credit: "a mysterious marauder",
-        //   imgSrc: "/static/gdwanay.png",
-        //   isActive: false,
-        //   lastUpdated: "2018-02-15T21:58:59-08:00",
-        //   order: 1
-        // },
-        // {
-        //   credit: "a mysterious marauder",
-        //   imgSrc: "/static/gdwanay.png",
-        //   isActive: false,
-        //   lastUpdated: "2018-02-15T21:58:59-08:00",
-        //   order: 2
-        // }
+        }
       ],
       users: [],
       uploadIsActive: false,
@@ -111,35 +93,6 @@ export default {
   },
   created: function () {
     let self = this
-
-    // let storageRef = db.storage()
-
-    console.log('ABC 123')
-    // console.log(self.requestedUser)
-
-    // Fetch images by stored name
-    // db.firestore().collection('users').get()
-    //   .then(function(querySnapshot){
-    //   //   querySnapshot.forEach(function(doc){
-    //   //     let freshData = doc.data()
-
-
-
-    //   //     // console.log(freshData)
-
-    //   //     if (self.currentUser === freshData.user) {
-    //   //       console.log('Match found: ' + freshData.user)
-    //   //     }
-
-    //   //     // storageRef.ref('main/'+ freshData.imgSrc)
-    //   //     //   .getDownloadURL()
-    //   //     //   .then(function(url) {
-    //   //     //     freshData.imgSrc = url
-    //   //     //   })
-
-    //   //     // self.heroes.push(freshData)
-    //   // })
-    //   })
   },
   methods: {
     uploadImg: function () {
@@ -162,46 +115,7 @@ export default {
       return timeup
     },
     onFileChange(e, imgIndex) {
-      // let self = this
-      // let files = e.target.files || e.dataTransfer.files;
-      // if (!files.length)
-      //   return;
 
-      // this.createImage(files[0], imgIndex);
-
-      // // Get file type (extension)
-      // let patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-      // let imgFileType = (files[0].name).match(patt1);
-
-      // let imgName = 'main/heroImg_0' + imgIndex + imgFileType[0]
-
-      // var storageRef = db.storage().ref(imgName);
-
-      // Update DB
-      // db.firestore().collection('heroes').orderBy("order").get().then(function(querySnapshot){
-      //   querySnapshot.forEach(function(doc){
-      //     let freshData = doc.data()
-          
-      //     if (freshData.order === imgIndex) {
-      //       freshData.imgSrc = 'heroImg_0' + imgIndex + imgFileType[0]
-      //       freshData.lastUpdated = moment().format();  
-      //       freshData.credit = self.currentUser ? self.currentUser : self.randomName()
-
-      //       // Update DOM attributes
-      //       self.heroes[imgIndex].lastUpdated = freshData.lastUpdated
-      //       self.heroes[imgIndex].credit = freshData.credit
-      //     }
-
-      //     db.firestore().collection("heroes").doc(doc.id).set(
-      //       freshData
-      //     )
-      //   })
-      // })
-
-      // Update DOM
-      // storageRef.put(files[0]).then(function(snapshot) {
-      //   console.log('Uploaded a blob or file!');
-      // });
     },
     createImage(file, imgIndex) {
       var image = new Image();

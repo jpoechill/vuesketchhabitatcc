@@ -2,12 +2,16 @@
   <div class="hello">
     <div class="container">
       <div class="row">
-       <div class="col-md-12 text-right" style="margin-top: 12px;">
-        <input type="text" v-model="nickname" placeholder="@nickname"><br>
+       <div class="col-md-12 text-center" style="margin-top: 12px;">
+        Login <br><br>
+        <input type="text" v-model="nickname" placeholder="Email"><br>
         <input type="password" v-model="password" placeholder="Password"><br>
         <span style="color: red; font-size: 10px;">{{ errorMsg }}</span>
         <span style="color: green; font-size: 10px;">{{ successMsg }}</span><br>
-        <button @click="login">Login</button>
+        <button @click="login">Login</button><br>
+        <hr style="width: 170px;">
+        <input type="button" onclick=callGoogleSignIn() style="width: 170px;" value="Login with Google"><br>
+        <input type="button" style="width: 170px;" value="Login with Facebook"><br><br>
        </div>
       </div>
     </div>

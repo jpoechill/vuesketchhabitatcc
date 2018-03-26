@@ -2,13 +2,16 @@
   <div class="hello">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 text-right" style="margin-top: 12px;">
-          <input type="text" v-model="nickname" placeholder="@nickname"><br>
+        <div class="col-md-12 text-center" style="margin-top: 12px;">
+          Sign Up <br><br>
+          <input type="text" v-model="nickname" placeholder="Nickname"><br>
           <input type="text" v-model="email" placeholder="Email"><br>
           <input type="password" v-model="password" placeholder="Password"><br>
           <input type="password" v-model="confirm" placeholder="Confirm"><br>
           <span style="color: red; font-size: 10px;">{{ errorMsg }}</span><br>
-          <button @click="signUp">Sign Up </button>
+          <!-- Sign up with Google <br>
+          Sign up with Facebook <br><br> -->
+          <button @click="signUp">Sign Up </button> <br><br>
         </div>
       </div>
     </div>
